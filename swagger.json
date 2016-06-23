@@ -1,0 +1,105 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "SMS API"
+    },
+    "host": "playground.apistudio.io",
+    "basePath": "/try/42d0c48e-2911-464c-b1f6-a837ed7b2ce0",
+    "schemes": [
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/sms": {
+            "x-swagger-router-controller": "sms_controller",
+            "post": {
+                "description": "send sms to recipient",
+                "operationId": "send_sms",
+                "parameters": [
+                    {
+                        "name": "recipientMsisdn",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "messageBody",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/smsResponse"
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "smsResponse": {
+            "required": [
+                "transactionId",
+                "timeStamp",
+                "recipientMsisdn"
+            ],
+            "properties": {
+                "transactionId": {
+                    "type": "string"
+                },
+                "timeStamp": {
+                    "type": "string"
+                },
+                "recipientMsisdn": {
+                    "type": "string"
+                }
+            }
+        },
+        "ErrorResponse": {
+            "required": [
+                "transactionId",
+                "timeStamp",
+                "recipientMsisdn",
+                "code",
+                "error",
+                "message"
+            ],
+            "properties": {
+                "transactionId": {
+                    "type": "string"
+                },
+                "timeStamp": {
+                    "type": "string"
+                },
+                "recipientMsisdn": {
+                    "type": "string"
+                },
+                "code": {
+                    "type": "string"
+                },
+                "error": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
